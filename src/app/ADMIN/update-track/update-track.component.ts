@@ -21,6 +21,7 @@ import { Track } from 'src/app/models/track';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackUpdateDto } from 'src/app/models/DTOs/TrackUpdateDto';
 import { SingleTrackDto } from 'src/app/models/DTOs/singleTrackDto';
+import { GlobalRequestService } from 'src/app/services/global-request.service';
 
 @Component({
   selector: 'app-update-track',
@@ -50,7 +51,9 @@ export class UpdateTrackComponent implements OnInit {
     private trackService: TrackService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private spinnerService: NgxSpinnerService // private spinnerService: NgxSpinnerService
+    private spinnerService: NgxSpinnerService, // private spinnerService: NgxSpinnerService,
+    private globalService:GlobalRequestService
+
   ) {}
 
   ngOnInit(): void {
@@ -83,10 +86,10 @@ export class UpdateTrackComponent implements OnInit {
     });
   }
   getKeys() {
-    return this.httpClient.get<Key[]>('http://localhost:5191/keys/getall');
+    return this.globalService.globalGet<Key[]>('http://localhost:5191/keys/getall');
   }
   getGenres() {
-    return this.httpClient.get<Genre[]>('http://localhost:5191/genres/getall');
+    return this.globalService.globalGet<Genre[]>('http://localhost:5191/genres/getall');
   }
   createTrackUpdateForm() {
     this.trackUpdateForm = this.formBuilder.group({

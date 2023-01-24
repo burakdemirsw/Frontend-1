@@ -57,7 +57,7 @@ export class UploadtrackComponent implements OnInit {
     return this.globalService.globalGet<Key[]>('http://localhost:5191/keys/getall')
   }
   getGenres() {
-    return this.httpClient.get<Genre[]>('http://localhost:5191/genres/getall');
+    return this.globalService.globalGet<Genre[]>('http://localhost:5191/genres/getall');
   }
   createTrackAddForm() {
     this.trackAddForm = this.formBuilder.group({
