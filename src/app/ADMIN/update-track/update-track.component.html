@@ -1,0 +1,192 @@
+<div class="content">
+  <div class="card" style="background-color: #141414 !important">
+    <div class="card-header">
+      <h3 class="title" style="text-align: center">Update Track</h3>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="trackUpdateForm" (ngSubmit)="updateTrack(trackUpdateForm.value)">
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4" style="display: none;">
+            <div class="form-group">
+              <h4>Track Id</h4>
+              <input #value type="number"  formControlName="id" class="form-control" id="id" placeholder="Track Id" />
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="form-group">
+              <h4>Track Title</h4>
+              <input type="text" formControlName="title" class="form-control" id="title" placeholder="Track Title" />
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="form-group">
+              <h4>Genre Name</h4>
+              <select class="form-control" aria-label="Default select example" formControlName="genreId" id="genreId">
+                <option *ngFor="let genre of genres" value="{{ genre.id }}" style="color: #141414 !important">
+                  {{ genre.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <div class="form-group">
+              <h4>Key Id</h4>
+              <select class="form-control" aria-label="Default select example" formControlName="keyId" id="keyId">
+                <option *ngFor="let key of keys" value="{{ key.id }}" style="color: #141414 !important">
+                  {{ key.keyName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6" style="display: none;">
+            <div class="form-group">
+              <h4>User Id</h4>
+              <input type="number" formControlName="userId" class="form-control" id="userId" placeholder="User Id" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <div class="form-group">
+              <h4>Track Price</h4>
+              <input type="number" formControlName="price" class="form-control" id="price" placeholder="Track Price" />
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="form-group">
+              <h4>Track Premium Price</h4>
+              <input type="number" formControlName="premiumPrice" class="form-control" id="premiumPrice"
+                placeholder="Track Genre" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <div class="upload-container">
+
+              <div style="text-align: center" class="border-container">
+
+                <div class="icons fa-4x">
+                  <i class="fas fa-file-image" data-fa-transform="shrink-3 down-2 left-6 rotate--45"></i>
+                  <i class="fas fa-file-alt" data-fa-transform="shrink-2 up-4"></i>
+                  <i class="fas fa-file-pdf" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <div style="display: flex; justify-content: center">
+                  <p>Add Photo &nbsp;</p>
+                  <p>
+                    <ngx-file-drop dropZoneClassName="upload-container" contentClassName=""
+                      dropZoneLabel="Drop files here" accept=".png , .jpg" (onFileDrop)="dropped($event)">
+                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        <a type="button" (click)="openFileSelector()">From Here!</a>
+                        <br>
+
+                      </ng-template>
+                    </ngx-file-drop>
+                  </p>
+                </div>
+                <br />
+                <br />
+                <div class="upload-table" *ngIf="files">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Added Photos</th>
+                        <span class="upload" *ngIf="progress > 0">
+                          {{progress}}%
+                        </span>
+                        <span class="upload" *ngIf="message">
+                          {{message}}
+                        </span>
+                      </tr>
+                    </thead>
+                    <tbody class="upload-name-style">
+                      <tr *ngFor="let item of files; let i = index">
+                        <td>{{ item.relativePath }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="upload-container">
+              <div style="text-align: center" class="border-container">
+
+               <div>
+                <div class="icons fa-4x">
+                  <i class="fas fa-file-image" data-fa-transform="shrink-3 down-2 left-6 rotate--45"></i>
+                  <i class="fas fa-file-alt" data-fa-transform="shrink-2 up-4"></i>
+                  <i class="fas fa-file-pdf" data-fa-transform="shrink-3 down-2 right-6 rotate-45"></i>
+                </div>
+                <div style="display: flex; justify-content: center">
+                  <p>Add Beat &nbsp;</p>
+                  <p>
+                    <ngx-file-drop dropZoneClassName="upload-container" contentClassName=""
+                      dropZoneLabel="Drop files here" accept=".mp3 , .waw" (onFileDrop)="dropped2($event)">
+                      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        <a type="button" (click)="openFileSelector()">From Here!</a>
+                      </ng-template>
+                    </ngx-file-drop>
+                  </p>
+                </div>
+                <br />
+                <br />
+                <div class="upload-table" *ngIf="files2">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Added Audio</th>
+                      </tr>
+                    </thead>
+                    <tbody class="upload-name-style">
+                      <tr *ngFor="let item of this.files2; let i = index">
+                        <td>{{ item.relativePath }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <div class="form-group">
+              <h4>Track Bpm</h4>
+              <input type="number" formControlName="bpm" class="form-control" id="bpm" placeholder="Track Bpm" />
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <div class="form-group">
+              <h4>Desc</h4>
+
+              <textarea type="text" formControlName="desc" class="form-control" id="desc" placeholder="Track Desc"
+                rows="3" style="max-height: 10rem"></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <button type="submit" [disabled]="trackUpdateForm.invalid" (click)="updateTrack(trackUpdateForm.value)" class="btn btn-dark">
+        Update
+      </button>
+    </div>
+  </div>
+</div>

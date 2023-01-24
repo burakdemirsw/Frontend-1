@@ -1,0 +1,12 @@
+<!-- Example single danger button -->
+<div *ngIf="cartItems" class="btn-group">
+  <button type="button" class="btn btn-light  dropdown-toggle my-2 mr-2 my-sm-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-cart4"></i>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" *ngFor="let cardItem of cartItems">{{cardItem.trackDetail.title}}</a>
+
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" routerLink="/Card">Go Card</a>
+  </div>
+</div>

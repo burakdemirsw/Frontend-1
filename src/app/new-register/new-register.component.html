@@ -1,0 +1,112 @@
+<style>
+  label {
+    font-weight: 600;
+    color: #555;
+  }
+
+  body {
+    background: black;
+  }
+  
+</style>
+
+<div class="container mt-2">
+  <form [formGroup]="addNewUserModel">
+    <div class="card-header">
+      <h3 class="title" style="text-align: center; color: white">Register</h3>
+    </div>
+    <div class="row jumbotron">
+
+      <div class="col-sm-4 form-group">
+        <label for="name-f">Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Enter your first name."
+          formControlName="name" required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('name')?.hasError('required') &&
+            addNewUserModel.get('name')?.dirty &&
+            addNewUserModel.get('name')?.touched
+          ">
+          Wrong User Name!
+        </div>
+      </div>
+
+      <div class="col-sm-4 form-group">
+        <label for="name-l">Sur Name</label>
+        <input type="text" class="form-control" name="surName" id="name-l" placeholder="Enter your last name."
+          formControlName="surName" required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('surName')?.hasError('required') &&
+            addNewUserModel.get('surName')?.dirty &&
+            addNewUserModel.get('surName')?.touched
+          ">
+          Wrong Last Name!
+        </div>
+      </div>
+
+      <div class="col-sm-4 form-group">
+        <label for="pass">Password</label>
+        <input type="password" formControlName="password" name="password" class="form-control" id="pass"
+          placeholder="Enter your password." required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('password')?.hasError('required') &&
+            addNewUserModel.get('password')?.dirty &&
+            addNewUserModel.get('password')?.touched
+          ">
+          Wrong Password!
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 form-group">
+        <label for="pass">userName</label>
+        <input type="userName" formControlName="userName" name="userName" class="form-control" id="pass"
+          placeholder="Enter your userName." required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('userName')?.hasError('required') &&
+            addNewUserModel.get('userName')?.dirty &&
+            addNewUserModel.get('userName')?.touched
+          ">
+          Wrong Password!
+        </div>
+      </div>
+
+      <div class="col-sm-4 form-group">
+        <label for="pass">email</label>
+        <input type="email" formControlName="email" name="email" class="form-control" id="pass"
+          placeholder="Enter your email." required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('email')?.hasError('required') &&
+            addNewUserModel.get('email')?.dirty &&
+            addNewUserModel.get('email')?.touched
+          ">
+          Wrong Password!
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 form-group">
+        <label for="pass">phoneNumber</label>
+        <input type="phoneNumber" formControlName="phoneNumber" name="phoneNumber" class="form-control" id="pass"
+          placeholder="Enter your phoneNumber." required />
+        <div class="alert alert-danger" *ngIf="
+            addNewUserModel.get('phoneNumber')?.hasError('required') &&
+            addNewUserModel.get('phoneNumber')?.dirty &&
+            addNewUserModel.get('phoneNumber')?.touched
+          ">
+          Wrong Password!
+        </div>
+      </div>
+
+
+
+    </div>
+  </form>
+
+  <div class="col-sm-12 form-group mb-0">
+    <button class="btn btn-primary float-right" [disabled]="addNewUserModel.invalid" (click)="addNewUser()">
+      Submit
+    </button>
+  </div>
+</div>
+
+

@@ -1,0 +1,140 @@
+
+
+<div class="trackList">
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">TrackId</th>
+        <th scope="col">Photo</th>
+        <th scope="col">BeatTitle</th>
+        <!-- <th scope="col">User Id</th>
+        <th scope="col">Track Time</th> -->
+        <th scope="col">Track Price</th>
+        <!-- <th scope="col">Track</th> -->
+        <th scope="col">Track Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- (click)="openFile(track.audioUrl)" -->
+      <tr *ngFor="let track of trackDetails">
+        <td>{{ track.id }}</td>
+        <td>
+          <img id="trackTableImage" class="image_custom" src="{{ track.photoUrl }}" alt=""
+            style="width: 50px; height: 50px; border: 1px solid white" (click)="clicked()"
+            (click)="resetIndex(track.id)" (click)="
+              changePlayerByTrack(track.photoUrl, track.title, track.desc,track.price)
+            " (click)="openFile2(track.id)" />
+        </td>
+
+        <td>{{ track.title }}</td>
+        <!-- <td>{{ track.userId }}</td>
+        <td>{{ track.trackTime }}</td> -->
+        <td>{{ track.price }}</td>
+        <!-- <td>
+          <audio controls id="audio">
+            <source src="{{ track.audioUrl }}" type="audio/ogg" />
+            <source src="{{ track.audioUrl }}" type="audio/waw" />
+          </audio>
+        </td> -->
+        <td>{{ track.price | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="music-player" *ngIf="buttonClicked" id="player" name="player">
+    <div class="song-bar">
+      <div class="song-infos">
+        <div class="image-container">
+          <img id="trackPlayerPhoto" alt="" />
+        </div>
+        <div class="song-description">
+          <p id="trackPlayerTitle" class="title"></p>
+          <p id="trackPlayerName" class="artist"></p>
+        </div>
+      </div>
+      <div class="icons">
+        <button class="btn btn-dark" (click)="clicked3()">
+          <i class="bi bi-heart" [ngClass]="{ 'bi bi-suit-heart-fill': buttonClicked3 == true }"></i>
+        </button>
+
+        <div class="btn-group dropup">
+          <button type="button" class="btn btn-dark" style="background-color: #111 !important" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item">Repost</a>
+            <a class="dropdown-item">Command</a>
+            <a class="dropdown-item">Share</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item">Go To Track</a>
+            <a class="dropdown-item">Go To Artist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-controller">
+      <div class="control-buttons">
+        <!-- <i class="bi bi-shuffle"></i>
+          <i class="bi bi-play" (click)="play()"></i>
+          <i class="bi bi-pause" (click)="pause()"></i>
+          <i  class="bi bi-stop" (click)="stop()"></i>
+          <i class="bi bi-skip-end"></i>
+          <i class="bi bi-arrow-counterclockwise"></i> -->
+        <button class="btn btn-dark" (click)="skipRandom()" (click)="resetPlayerByTrack(this.currentIndex)">
+          <i class="bi bi-shuffle"></i>
+        </button>
+        <button class="btn btn-dark" (click)="skipStart()" (click)="resetPlayerByTrack(currentIndex)">
+          <i class="bi bi-skip-start"></i>
+        </button>
+
+        <button class="btn btn-dark" (click)="play()" (click)="clicked2()">
+          <i class="bi bi-play" [ngClass]="{
+            'bi bi-pause': buttonClicked2 == true,
+            'bi bi-play': buttonClicked2 == false
+          }"></i>
+        </button>
+        <!--
+      <button class="btn btn-dark" (click)="pause()">
+        <i class="bi bi-pause"></i>
+      </button>
+      <button class="btn btn-dark" (click)="stop()">
+        <i class="bi bi-stop"></i>
+      </button> -->
+        <button class="btn btn-dark" (click)="skipEnd()" (click)="resetPlayerByTrack(this.currentIndex)">
+          <i class="bi bi-skip-end"></i>
+        </button>
+        <button class="btn btn-dark" (click)="stop()">
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+      <div class="progress-container">
+        <span>{{ currentTime }}</span>
+        <div class="progress-bar">
+          <input type="range" min="0" max="{{ duration }}" value="{{ seek }}" (click)="setCurrentTime($event)"
+            class="form-range mw-100" id="audioRange2" />
+        </div>
+        <span>{{ duration2 }}</span>
+      </div>
+      <div class="other-features">
+        <div class="volume-bar">
+          <button class="btn btn-dark" (click)="mute()" (click)="clicked4()">
+            <i class="bi bi-volume-up" [ngClass]="{
+              'bi bi-volume-off': buttonClicked4 == true,
+              'bi bi-volume-up': buttonClicked4 == false
+            }"></i>
+          </button>
+
+          <div class="progress-bar">
+            <input type="range" min="0" max="1" step="0.01" value="1" (click)="setVolume($event)" class="form-range"
+              id="audioRange" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

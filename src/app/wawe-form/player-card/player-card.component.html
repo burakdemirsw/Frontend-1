@@ -1,0 +1,24 @@
+<div class="player">
+  <div class="thumb">
+    <img src="{{ track.photoUrl }}" alt="" />
+  </div>
+  <div class="info">
+    <div class="detail">
+      <div class="title">
+        {{ track.title }} | {{ track.desc }}
+        <div class="time">
+          <span id="current">0:00</span> /
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+      <div class="control">
+        <i
+          class="bi bi-{{ toggleStatus ? 'pause' : 'play' }}"
+          id="playPause"
+          (click)="playWaveFormOnClick(track.id)"
+        ></i>
+      </div>
+    </div>
+    <div id="T{{ track.id }}"></div>
+  </div>
+</div>

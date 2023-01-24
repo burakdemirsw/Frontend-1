@@ -1,0 +1,127 @@
+<header class="fixedHeader">
+  <app-marquee></app-marquee>
+  <style>
+    .container-1 {
+      margin-left: 10rem;
+      margin-right: 10em;
+    }
+
+    .bg-dark {
+      background-color: #141414 !important;
+    }
+
+    .navbar {
+      height: 5rem;
+    }
+  </style>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 10rem; margin-right: 10rem">
+      <ul class="navbar-nav mr-auto">
+        <a class="navbar-brand" routerLink="/Homepage">
+          <img src="assets/photos/logoo.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+          BEATZONE
+        </a>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/TrackList">Beats<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/Wave">Loops <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/TrackList">Drum Kits <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Genres
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a *ngFor="let genre of genres" class="dropdown-item" href="#">{{
+              genre.name
+              }}</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown active" *ngIf="authService.isAuthenticated">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Admin Panel
+          </a>
+          <style>
+            .dropdown-menu.show {
+              z-index: 9999 !important;
+            }
+          </style>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/Admin">All Tracks</a>
+            <a class="dropdown-item" routerLink="/Admin">Orders</a>
+            <a class="dropdown-item" routerLink="/Admin">Members</a>
+            <a class="dropdown-item" routerLink="/Admin">Raports</a>
+            <a class="dropdown-item" routerLink="/Player">Player</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-light my-2 mr-2 my-sm-0" routerLink="/Upload" *ngIf="authService.isAuthenticated">
+          <i class="bi bi-folder-plus"></i>        </button>
+        <app-cart-summary></app-cart-summary>
+        <!-- <app-favorite-summary></app-favorite-summary> -->
+        <!-- <button class="btn btn-outline-light my-2 mr-2 my-sm-0" routerLink="/Login">Login</button> -->
+        <div  class="btn-group">
+          <button type="button" class="btn btn-light  dropdown-toggle my-2 mr-2 my-sm-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person-fill"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" >Favorites</a>
+            <a class="dropdown-item" >History</a>
+            <a class="dropdown-item" >Purchased</a>
+            <a class="dropdown-item" >History</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" >Your Orders</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" >Account Setting</a>
+            <a class="dropdown-item" >Help</a>
+
+
+            <div class="dropdown-divider"></div>
+
+
+
+            <a class="dropdown-item" routerLink="/Card">Go Profile</a>
+          </div>
+        </div>
+
+        <a  class="btn btn-light my-2 mr-2 my-sm-0" routerLink="/TrackList" routerLink="/Login" *ngIf="!authService.isAuthenticated"><i class="bi bi-box-arrow-in-left"></i><span
+            class="sr-only">(current)</span></a>
+
+        <a  class="btn btn-light my-2 mr-2 my-sm-0" routerLink="/Register" *ngIf="!authService.isAuthenticated"><i class="bi bi-person-plus"></i><span
+            class="sr-only">(current)</span></a>
+
+        <!-- <a class="nav-link" *ngIf="authService.isAuthenticated" (click)="logOut()"><i class="bi bi-box-arrow-right"></i></a> -->
+
+        <button class="btn btn-light my-2 mr-2 my-sm-0" *ngIf="authService.isAuthenticated" (click)="logOut()">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+        <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+        <!-- <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button> -->
+      </form>
+    </div>
+  </nav>
+</header>
+<style>
+  .fixedHeader {
+    position: fixed;
+    /* verdiğin top ve left değerlerinde sabit tutan kod 'fixed' yani tarayıcıya göre göreceli*/
+    width: 100%;
+    /* burayı istediğin şekilde değiştirebilirsin tamamen senin kullanacağın header tasarımına göre ayarladığın width değeri*/
+    z-index: 1000;
+    /* z-index divine üst yada alt katman ayarı yapmanı sağlar 1'in sonuna koyduğun 0 saysısna göre daha yukarda olmasını sağlar. */
+    top: 0;
+    /* top o divin en yukarı yapışık olması için kendi tasarımına göre değiştirebilirsin */
+  }
+</style>

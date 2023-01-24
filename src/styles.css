@@ -1,0 +1,20 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.min.css";
+@import "../node_modules/ngx-spinner/animations/ball-scale-multiple.css";
+@import "../node_modules/ngx-spinner/animations/line-scale-pulse-out.css";
+
+
+.background-index {
+  background-color: #000000 !important;
+}
+
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  transition: all 0.35s linear;
+}
+

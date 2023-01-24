@@ -1,0 +1,252 @@
+ <!--#region navbar  -->
+ <nav class="navbar navbar-custom" >
+  <div class="">
+    <form class="form-inline">
+      <input style="border-radius: 25px !important; border: 1px solid #ffffff" id="title" name="title" type="search"
+        [(ngModel)]="filterText" class="form-control ml-2 mr-2 sm-2" placeholder="Search..." aria-label="Search" />
+      <button style="border-radius: 25px !important; border: 1px solid #ffffff"
+        class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()">
+        Search
+      </button>
+      <div class="dropdown">
+        <button style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 2rem;
+          " class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="sortByPrice('price')">Price</a>
+          <a class="dropdown-item" (click)="sortByDownload('downloadNumber')">Download</a>
+          <a class="dropdown-item" (click)="sortByPrice('price')">Command</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 1rem;
+          ">
+          Date
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="sortByDate('dateTime')">Newest First</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 1rem;
+          ">
+          Key
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="filterByKey('')">Select Key</a>
+          <a class="dropdown-item" *ngFor="let key of keys" (click)="filterByKey(key.keyName)">{{ key.keyName }}</a>
+        </div>
+      </div>
+      <button *ngFor="let genre of genres" style="
+          border-radius: 25px !important;
+          border: 1px solid #ffffff;
+          margin-left: 1rem;
+          margin-top: rem !important;
+        " class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()"
+        (click)="filterByGenre(genre.name)">
+        {{ genre.name }}
+      </button>
+
+    </form>
+  </div>
+</nav>
+
+ <!--#endregion -->
+ <!--#region trackList  -->
+ <div class="row">
+  <div *ngFor="
+      let track of trackDetails.slice(this.slice1, this.slice2)
+        | trackPageKeyFilter : filteredKey
+        | trackPageGenreFilter : filteredGenre
+        | orderBy : key2 : reverse2
+        | orderBy : key : reverse
+        | orderBy : download : reverse3
+        | trackpageFilter : searchTrack
+    " class="card" style="margin-left: 0.99rem; margin-top: 1rem">
+    <div class="itemsContainer">
+      <img class="card-img-top" src="{{ track.photoUrl }}" routerLink="/Track-Special/{{ track.id }}" />
+      <div class="play">
+        <img id="i{{ track.id }}" name="playPause" (click)="clicked()" (click)="resetIndex(track.id)"
+          id="listPlayButton" (click)="
+            changePlayerByTrack(
+              track.photoUrl,
+              track.title,
+              track.desc,
+              track.price
+            )
+          " (click)="openFile3(track.id)" style="width: 5rem; height: 5rem" src="../../assets/photos/play-2.png" />
+
+      </div>
+    </div>
+
+    <div name="card-body">
+      <div class="card-body" style="
+          text-align: left !important;
+          padding-top: 1.25rem !important;
+          padding-right: 1.25rem !important;
+          padding-bottom: 1.25rem !important;
+          padding-left: 0rem !important;
+        ">
+        <span class="card-font" style="color: #0b8aff !important">{{ track.price | currency }}
+        </span>
+        <button class="download-button"  data-toggle="modal" data-target="#exampleModalCenter">
+          Free <i class="bi bi-download"></i>
+        </button>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Please Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                You have to log in to download this track.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="text-muted" style="text-align: center">
+          {{ track.bpm }} BPM
+        </span>
+
+        <br />
+        <span class="card-title" routerLink="/Track-Special/{{ track.id }}">
+          {{ track.title | uppercase }} - {{ track.desc | uppercase }}
+        </span>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <button class="btn btn-dark" (click)="lastPage()" *ngIf="this.slice1 >= 20">
+    Last Page
+  </button>
+
+  <button class="btn btn-dark right" (click)="skipPage()">Skip Page</button>
+</div>
+
+  <!--#endregion -->
+ <!--#region player  -->
+ <div class="music-player" *ngIf="buttonClicked" id="player" name="player"
+ style="margin-left: 10em; margin-right: 10rem">
+ <div class="song-bar">
+   <div class="song-infos">
+     <div class="image-container">
+       <img id="trackPlayerPhoto" />
+     </div>
+     <div class="song-description">
+       <p id="trackPlayerTitle" class="title"></p>
+       <p id="trackPlayerName" class="artist"></p>
+     </div>
+   </div>
+   <div class="icons">
+     <button class="btn btn-dark realdark" (click)="clicked3()" style="
+         border-radius: 25px !important;
+         border: 1px solid #141414;
+         background-color: #000 !important;
+       ">
+       <i class="bi bi-heart" [ngClass]="{ 'bi bi-suit-heart-fill': buttonClicked3 == true }"></i>
+     </button>
+
+     <div class="btn-group dropup">
+       <button type="button" class="btn btn-dark.realdark"
+         style="border-radius: 25px !important; border: 1px solid #141414" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false">
+         <i class="bi bi-three-dots"></i>
+       </button>
+       <div class="dropdown-menu">
+         <a class="dropdown-item">Repost</a>
+         <a class="dropdown-item">Command</a>
+         <a class="dropdown-item">Share</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" routerLink="/Track-Special/{{this.currentTrackId}}">Go To Track</a>
+         <a class="dropdown-item">Go To Artist</a>
+       </div>
+     </div>
+     <button class="btn btn-primary" (click)="clicked3()"
+       style="border-radius: 25px !important; border: 1px solid #141414" (click)="addToCartToTrackDetail()">
+       <i class="bi bi-cart4" style="color: white !important" id="trackPlayerPrice"></i>
+     </button>
+   </div>
+ </div>
+
+ <div class="progress-controller">
+   <div class="control-buttons">
+     <button style="border-radius: 25px !important; border: 1px solid #141414" class="btn btn-dark.realdark"
+       (click)="skipRandom()" (click)="resetPlayerByTrack(this.currentIndex)">
+       <i class="bi bi-shuffle"></i>
+     </button>
+     <button style="border-radius: 25px !important; border: 1px solid #141414" class="btn btn-dark.realdark"
+       (click)="skipStart()" (click)="resetPlayerByTrack(currentIndex)">
+       <i class="bi bi-skip-start"></i>
+     </button>
+
+     <button class="btn btn-dark.realdark" (click)="clicked2()"
+       style="border-radius: 25px !important; border: 1px solid #141414">
+       <i class="bi bi-play" [ngClass]="{
+           'bi bi-pause': buttonClicked2 == true,
+           'bi bi-play': buttonClicked2 == false
+         }"></i>
+     </button>
+     <button style="border-radius: 25px !important; border: 1px solid #141414" class="btn btn-dark.realdark"
+       (click)="skipEnd()">
+       <i class="bi bi-skip-end"></i>
+     </button>
+     <button class="btn btn-dark.realdark" (click)="rePlay()"
+       style="border-radius: 25px !important; border: 1px solid #141414">
+       <i class="bi bi-arrow-counterclockwise"></i>
+     </button>
+   </div>
+   <div class="progress-container" style="margin-left: 5rem; margin-right: 5rem">
+     <span>{{ currentTime }}</span>
+     <div class="progress-bar">
+       <input type="range" min="0" max="{{ duration }}" value="{{ seek }}" (input)="setCurrentTime($event)"
+         class="form-range mw-100" id="audioRange2" />
+     </div>
+     <span>{{ duration2 }}</span>
+   </div>
+   <div class="other-features">
+     <div class="volume-bar">
+       <button class="btn btn-dark.realdark" style="border-radius: 25px !important; border: 1px solid #141414">
+         <i class="bi bi-blockquote-left"></i>
+       </button>
+       <button class="btn btn-dark.realdark" (click)="mute()" (click)="clicked4()"
+         style="border-radius: 25px !important; border: 1px solid #141414">
+         <i class="bi bi-volume-up" [ngClass]="{
+             'bi bi-volume-off': buttonClicked4 == true,
+             'bi bi-volume-up': buttonClicked4 == false
+           }"></i>
+       </button>
+
+       <div class="progress-bar">
+         <input type="range" min="0" max="1" step="0.01" value="1" (input)="setVolume($event)" class="form-range"
+           id="audioRange" />
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+
+  <!--#endregion -->
+

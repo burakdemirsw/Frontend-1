@@ -1,0 +1,12 @@
+<!-- Example single danger button -->
+<div *ngIf="favItems" class="btn-group">
+  <button type="button" class="btn btn-light  me-2  dropdown-toggle my-2 mr-2 my-sm-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-heart"></i>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" *ngFor="let favItem of favItems">{{favItem.trackDetail.title}}</a>
+
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" routerLink="/Card" >Go Card</a>
+  </div>
+</div>

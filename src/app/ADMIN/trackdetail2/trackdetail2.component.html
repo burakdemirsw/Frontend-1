@@ -1,0 +1,38 @@
+<br />
+<br />
+<div>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">TrackId</th>
+        <th scope="col">BeatTitle</th>
+        <th scope="col">Track Time</th>
+        <th scope="col">Track Price</th>
+
+        <th scope="col">Track Premium Price</th>
+        <th scope="col">Track</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ trackDetail.id }}</td>
+        <td>{{ trackDetail.title }}</td>
+        <td>{{ trackDetail.price }}</td>
+        <td>{{ trackDetail.premiumPrice }}</td>
+        <td>{{ trackDetail.premiumPrice | currency }}</td>
+        <td>
+          <audio controls>
+            <source
+              src="../../assets/audios/motivexblavk808.mp3"
+              type="audio/ogg"
+            />
+            <source
+              src="../../assets/audios/motivexblavk808.mp3"
+              type="audio/mpeg"
+            />
+          </audio>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,159 @@
+<!--#region filter  -->
+
+<nav class="navbar navbar-custom" style="position: fixed; width: 100%; z-index: 200; top: 110px">
+  <div>
+    <form class="form-inline">
+      <input style="border-radius: 25px !important; border: 1px solid #ffffff" id="title" name="title" type="search"
+        [(ngModel)]="filterText" class="form-control ml-2 mr-2 sm-2" placeholder="Search..." aria-label="Search" />
+      <button style="border-radius: 25px !important; border: 1px solid #ffffff"
+        class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()">
+        Search
+      </button>
+      <div class="dropdown">
+        <button style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 2rem;
+          " class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="sortByPrice('price')">Price</a>
+          <a class="dropdown-item" (click)="sortByPrice('price')">Download</a>
+          <a class="dropdown-item" (click)="sortByPrice('price')">Command</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 1rem;
+          ">
+          Date
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="sortByDate('dateTime')">Newest First</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 1rem;
+          ">
+          Key
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="filterByKey('')">Select Key</a>
+          <a class="dropdown-item" *ngFor="let key of keys" (click)="filterByKey(key.keyName)">{{ key.keyName }}</a>
+        </div>
+      </div>
+      <button *ngFor="let genre of genres" style="
+          border-radius: 25px !important;
+          border: 1px solid #ffffff;
+          margin-left: 1rem;
+          margin-top: rem !important;
+        " class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()"
+        (click)="filterByGenre(genre.name)">
+        {{ genre.name }}
+      </button>
+
+      <!-- <div class="dropdown">
+            <button
+              class="btn btn-outline-light ml-2 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false
+              "
+              style="border-radius: 25px !important; border: 1px solid #ffffff"
+            >
+              Genre
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="filterByGenre('')">All Genres</a>
+              <a
+                class="dropdown-item"
+                *ngFor="let genre of genres"
+                (click)="filterByGenre(genre.name)"
+                >{{ genre.name }}</a
+              >
+            </div>
+          </div> -->
+    </form>
+  </div>
+</nav>
+
+<!--#endregion -->
+<!--#region trackList  -->
+<div class="row" style="margin-top: 14.875rem !important">
+  <section *ngFor="
+      let track of trackDetails.slice(0, 6)
+        | trackPageKeyFilter : filteredKey
+        | trackPageGenreFilter : filteredGenre
+        | orderBy : key2 : reverse2
+        | orderBy : key : reverse
+        | trackpageFilter : searchTrack
+    ">
+    <div class="player">
+      <div class="thumb">
+        <img src="{{ track.photoUrl }}" alt="" />
+      </div>
+      <div class="info">
+        <div class="detail">
+          <div class="title">
+            {{ track.title }} | {{ track.desc }}
+            <div class="time">
+              <span id="c{{ track.id }}">00:00</span>/
+              <span id="d{{ track.id }}">00:00</span>
+            </div>
+          </div>
+          <div class="control3">
+            <input type="range" class="form-range" min="0" step="0.1" max="1" id="customRange1"
+              (input)="setVolume($event, track.id)" />
+          </div>
+          <div class="control2" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="bi bi-download"></i>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                      Login
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">Please Login.</div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink="/Login">
+                      Login
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="download(track.audioUrl, track.id)">
+                      Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="control">
+            <i class="bi bi-play" id="p{{ track.id }}" name="playPause" (click)="playWaveForm(track.id)"></i>
+          </div>
+        </div>
+        <div id="T{{ track.id }}"></div>
+      </div>
+    </div>
+  </section>
+</div>
+<style>
+  .right {
+    float: right;
+  }
+</style>
