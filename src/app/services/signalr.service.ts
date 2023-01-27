@@ -7,7 +7,7 @@ import {
 
 @Injectable({
   providedIn: 'root',
-})  //27.01
+})  //27.01.2023
 export class SignalRService {
   private _connection: HubConnection;
   get connection(): HubConnection {
