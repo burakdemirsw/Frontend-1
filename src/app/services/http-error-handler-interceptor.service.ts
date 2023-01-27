@@ -42,7 +42,8 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
 
             var str = err.error;
             var splitted = str.split('End', 1);
-            this.alertifyService.error(splitted[0]);
+            // this.alertifyService.error(splitted[0]);
+            console.log(str)
 
             break;
 

@@ -16,6 +16,7 @@ import { GlobalRequestService } from 'src/app/services/global-request.service';
   styleUrls: ['./uploadtrack.component.css'],
 })
 export class UploadtrackComponent implements OnInit {
+
   public files: NgxFileDropEntry[];
   fileList: any[] = [];
 
@@ -29,13 +30,14 @@ export class UploadtrackComponent implements OnInit {
   file: File;
   genres: Genre[] = [];
   keys: Key[] = [];
+
   constructor(
     private httpClient: HttpClient,
     private formBuilder: FormBuilder,
     private trackService: TrackService,
     private alertifyService: AlertifyService,
     private spinnerService: NgxSpinnerService,
-    private globalService:GlobalRequestService
+    private globalService: GlobalRequestService
   ) {}
 
   ngOnInit(): void {
@@ -54,11 +56,17 @@ export class UploadtrackComponent implements OnInit {
   }
 
   getKeys() {
-    return this.globalService.globalGet<Key[]>('http://localhost:5191/keys/getall')
+    return this.globalService.globalGet<Key[]>(
+      'http://localhost:5191/keys/getall'
+    );
   }
+
   getGenres() {
-    return this.globalService.globalGet<Genre[]>('http://localhost:5191/genres/getall');
+    return this.globalService.globalGet<Genre[]>(
+      'http://localhost:5191/genres/getall'
+    );
   }
+
   createTrackAddForm() {
     this.trackAddForm = this.formBuilder.group({
       userId: ['', Validators.required],

@@ -1,21 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AlertifyService } from '../../services/alertify.service';
 import { TrackService } from '../../services/track.service';
 import { HttpClient } from '@angular/common/http';
 import { Genre } from 'src/app/models/genre';
 import { Key } from 'src/app/models/key';
-import {
-  NgxFileDropEntry,
-  FileSystemFileEntry,
-  FileSystemDirectoryEntry,
-} from 'ngx-file-drop';
-import { AllTrackDto } from 'src/app/models/DTOs/AllTrackDto';
+import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
 import { ActivatedRoute } from '@angular/router';
 import { Track } from 'src/app/models/track';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,8 +19,8 @@ import { GlobalRequestService } from 'src/app/services/global-request.service';
   styleUrls: ['./update-track.component.css'],
 })
 export class UpdateTrackComponent implements OnInit {
-  track: Track = new Track;
-  single: SingleTrackDto = new SingleTrackDto;
+  track: Track = new Track();
+  single: SingleTrackDto = new SingleTrackDto();
   trackUpdateForm!: FormGroup;
 
   url = 'http://localhost:4200/TrackList';
@@ -43,7 +33,7 @@ export class UpdateTrackComponent implements OnInit {
   public files2: NgxFileDropEntry[];
   fileList2: any[] = [];
 
-  currentTrackId : number = 0;
+  currentTrackId: number = 0;
 
   constructor(
     private httpClient: HttpClient,
@@ -52,28 +42,25 @@ export class UpdateTrackComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private spinnerService: NgxSpinnerService, // private spinnerService: NgxSpinnerService,
-    private globalService:GlobalRequestService
-
+    private globalService: GlobalRequestService
   ) {}
 
   ngOnInit(): void {
     this.spinnerService.show();
-      this.getGenres().subscribe((data) => {
-        this.genres = data;
+    this.getGenres().subscribe((data) => {
+      this.genres = data;
+    });
+    this.getKeys().subscribe((data) => {
+      this.keys = data;
+    });
+
+    this.spinnerService.hide();
+    setTimeout(() => {
+      this.activatedRoute.params.subscribe((params) => {
+        this.getTrackById(params['trackId']);
       });
-      this.getKeys().subscribe((data) => {
-        this.keys = data;
-      });
-
-      this.spinnerService.hide();
-      setTimeout(() => {
-        this.activatedRoute.params.subscribe((params) => {
-          this.getTrackById(params['trackId']);
-
-        });
-        this.createTrackUpdateForm();
-
-      }, 0);
+      this.createTrackUpdateForm();
+    }, 0);
   }
 
   getTrackById(trackId: number) {
@@ -81,15 +68,19 @@ export class UpdateTrackComponent implements OnInit {
       this.single = data;
       this.track = data;
       console.log(this.single);
-      this.currentTrackId=this.track.id
+      this.currentTrackId = this.track.id;
       this.createTrackUpdateForm();
     });
   }
   getKeys() {
-    return this.globalService.globalGet<Key[]>('http://localhost:5191/keys/getall');
+    return this.globalService.globalGet<Key[]>(
+      'http://localhost:5191/keys/getall'
+    );
   }
   getGenres() {
-    return this.globalService.globalGet<Genre[]>('http://localhost:5191/genres/getall');
+    return this.globalService.globalGet<Genre[]>(
+      'http://localhost:5191/genres/getall'
+    );
   }
   createTrackUpdateForm() {
     this.trackUpdateForm = this.formBuilder.group({
@@ -132,7 +123,6 @@ export class UpdateTrackComponent implements OnInit {
     }
   }
   addValueFormData(value: TrackUpdateDto): FormData {
-
     const formdata: FormData = new FormData();
 
     formdata.append('images', this.fileList[0]);
@@ -154,26 +144,20 @@ export class UpdateTrackComponent implements OnInit {
 
   updateTrack(value: TrackUpdateDto) {
     let trackModel = Object.assign({}, this.trackUpdateForm.value);
-    console.log(trackModel)
-      if (this.trackUpdateForm.valid||!this.trackUpdateForm.valid) {
+    console.log(trackModel);
+    if (this.trackUpdateForm.valid || !this.trackUpdateForm.valid) {
+      this.spinnerService.show();
 
-        this.spinnerService.show()
-
-        this.trackService
-          .updateTrack(this.addValueFormData(value))
-          .subscribe((response) => {
-
-            this.alertifyService.success('TRACK HAS BEEN UPLOADED SUCCSESSFULY');
-            this.spinnerService.hide()
-            location.href='http://localhost:4200/TrackList'
-
-          });
-      } else {
-        this.alertifyService.error('ERROR!');
-        location.reload()
-      }
-
-
-
+      this.trackService
+        .updateTrack(this.addValueFormData(value))
+        .subscribe((response) => {
+          this.alertifyService.success('TRACK HAS BEEN UPLOADED SUCCSESSFULY');
+          this.spinnerService.hide();
+          location.href = 'http://localhost:4200/TrackList';
+        });
+    } else {
+      this.alertifyService.error('ERROR!');
+      location.reload();
+    }
   }
 }

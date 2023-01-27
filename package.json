@@ -26,6 +26,7 @@
     "@capacitor/core": "^4.6.2",
     "@flaticon/flaticon-uicons": "^1.7.0",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
+    "@microsoft/signalr": "^7.0.2",
     "alertifyjs": "^1.13.1",
     "angular-popper": "^2.0.1",
     "angular-wavesurfer-service": "^2.1.1",

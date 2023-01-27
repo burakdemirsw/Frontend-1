@@ -92,6 +92,7 @@ export class TrackpageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // setInterval(this.consoleWriter.bind(this), 1000);
     this.spinnerService.show();
 
     this.getTrackDetail().subscribe((data) => {
@@ -108,6 +109,10 @@ export class TrackpageComponent implements OnInit, OnDestroy {
     });
 
     this.spinnerService.hide();
+  }
+
+  consoleWriter():void{
+    console.log("text")
   }
   getTrackDetail(): Observable<TrackDetail[]> {
     return this.globalRequest.globalGet<TrackDetail>(
