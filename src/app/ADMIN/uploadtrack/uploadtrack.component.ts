@@ -143,8 +143,11 @@ export class UploadtrackComponent implements OnInit {
           location.reload();
         });
     } else {
+
       this.alertifyService.error('ERROR!');
       console.log(this.trackAddForm);
     }
+    this.spinnerService.hide();
+
   }
 }

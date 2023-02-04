@@ -11,32 +11,24 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-trackdetail2',
   templateUrl: './trackdetail2.component.html',
-  styleUrls: ['./trackdetail2.component.css']
+  styleUrls: ['./trackdetail2.component.css'],
 })
 export class Trackdetail2Component implements OnInit {
   constructor(
+    private trackService: TrackService,
+    private activatedRoute: ActivatedRoute,
+  ) {}
+  track: Track = new Track();
+  trackDetail: TrackDetail = new TrackDetail();
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.getTrackById(params['trackId']);
+    });
+  }
 
-    private trackService:TrackService,
-    private activatedRoute:ActivatedRoute,
-    private userService: UserService
-    // private spinnerService: NgxSpinnerService
-  ) { }
-track:Track = new Track;
-trackDetail:TrackDetail = new TrackDetail;
-ngOnInit()
-{
-
- this.activatedRoute.params.subscribe(params=>{
-   this.getTrackById(params["trackId"])
-
-
- })
-}
-
-getTrackById(trackId:number){
-  this.trackService.getTrackWithDetailFromApi(trackId).subscribe(data=>{
-    this.trackDetail = data;
-       console.log(data)
-  })
-}
+  getTrackById(trackId: number) {
+    this.trackService.getTrackWithDetailFromApi(trackId).subscribe((data) => {
+      this.trackDetail = data;
+    });
+  }
 }

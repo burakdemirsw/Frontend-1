@@ -20,31 +20,18 @@ const routes: Routes = [
   { path: 'Admin', component: TrackComponent , canActivate: [NewLoginGuard]},
   { path: 'Login', component: LoginComponent },
   { path: 'Homepage', component: HomepageComponent},
-  {
-    path: 'Upload',
-    component: UploadtrackComponent, canActivate: [NewLoginGuard]
-  },
-  {
-    path: 'Update/:trackId',
-    component: UpdateTrackComponent,
-  },
-  {
-    path: 'Update',
-    component: UpdateTrackComponent, canActivate: [NewLoginGuard]
-  },
-
+  {path: 'Upload',component: UploadtrackComponent, canActivate: [NewLoginGuard]},
+  {path: 'Update/:trackId',component: UpdateTrackComponent,},
+  {path: 'Update',component: UpdateTrackComponent, canActivate: [NewLoginGuard]},
   { path: 'Card', component: CardComponent },
   { path: 'Track-Details/:trackId', component: Trackdetail2Component },
   { path: 'Track-Special/:trackId', component: TrackdetailsComponent },
   { path: 'Player', component: PlayerComponent },
-  // { path: 'Register', component: RegisterComponent },
   { path: 'Wave', component: WaweFormComponent, canActivate: [NewLoginGuard] },
   { path: 'Register', component: NewRegisterComponent },
-
   { path: '', component: HomepageComponent, canActivate: [NewLoginGuard] },
 ];
 
-// { path: '', redirectTo: 'products', pathMatch: 'full' },
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HubConnection,
   HubConnectionBuilder,
@@ -7,7 +7,7 @@ import {
 
 @Injectable({
   providedIn: 'root',
-})  //27.01.2023
+}) //27.01.2023
 export class SignalRService {
   private _connection: HubConnection;
   get connection(): HubConnection {
@@ -15,36 +15,41 @@ export class SignalRService {
   }
 
   start(hubUrl: string) {
-    if(!this.connection || this._connection?.state == HubConnectionState.Disconnected){
-      const builder : HubConnectionBuilder =  new HubConnectionBuilder();
-      const hubConnection :HubConnection  = builder.withUrl(hubUrl)
-      .withAutomaticReconnect()
-      .build();
+    if (
+      !this.connection ||
+      this._connection?.state == HubConnectionState.Disconnected
+    ) {
+      const builder: HubConnectionBuilder = new HubConnectionBuilder();
+      const hubConnection: HubConnection = builder
+        .withUrl(hubUrl)
+        .withAutomaticReconnect()
+        .build();
 
-      hubConnection.start().then(()=>{
-        console.log("Connected...");
-
-      })
-      .catch(error=>setTimeout(()=>this.start(hubUrl),2000))
+      hubConnection
+        .start()
+        .then(() => {
+          console.log('Connected...');
+        })
+        .catch((error) => setTimeout(() => this.start(hubUrl), 2000));
       this._connection = hubConnection;
-
     }
-    this._connection.onreconnected(connectionId => console.log("Reconected..."));
-    this._connection.onreconnecting(error => console.log("Reconecting..."));
-    this._connection.onclose(error => console.log("Close Reconection"));
-
-
-
+    this._connection.onreconnected((connectionId) =>
+      console.log('Reconected...')
+    );
+    this._connection.onreconnecting((error) => console.log('Reconecting...'));
+    this._connection.onclose((error) => console.log('Close Reconection'));
   }
 
   invoke(
-
     procedureName: string,
     message: any,
     successCallBack?: (value: any) => void,
     errorCallBack?: (error: any) => void
   ) {
-    this.connection.invoke(procedureName,message).then(successCallBack).catch(errorCallBack);
+    this.connection
+      .invoke(procedureName, message)
+      .then(successCallBack)
+      .catch(errorCallBack);
   }
 
   on(procedureName: string, callBack: (...message: any) => void) {

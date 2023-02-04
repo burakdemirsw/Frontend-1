@@ -156,6 +156,8 @@ export class UpdateTrackComponent implements OnInit {
           location.href = 'http://localhost:4200/TrackList';
         });
     } else {
+      this.spinnerService.hide();
+
       this.alertifyService.error('ERROR!');
       location.reload();
     }
