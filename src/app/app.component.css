@@ -1,6 +1,9 @@
 .container-1{
-  margin-left: 10rem;
-  margin-right: 10rem;
+  /* margin-left: 10rem;
+  margin-right: 10rem; */
+  max-width:80%;
+  margin: 0 auto;
+  padding: 1rem;
 
 }
 .margined-outlet{

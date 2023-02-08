@@ -1,1 +1,10 @@
-  
+.fixedHeader {
+  position: fixed;
+  /* verdiğin top ve left değerlerinde sabit tutan kod 'fixed' yani tarayıcıya göre göreceli*/
+  width: 100%;
+  /* burayı istediğin şekilde değiştirebilirsin tamamen senin kullanacağın header tasarımına göre ayarladığın width değeri*/
+  z-index: 1000;
+  /* z-index divine üst yada alt katman ayarı yapmanı sağlar 1'in sonuna koyduğun 0 saysısna göre daha yukarda olmasını sağlar. */
+  top: 0;
+  /* top o divin en yukarı yapışık olması için kendi tasarımına göre değiştirebilirsin */
+}

@@ -14,7 +14,10 @@
 
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
   transition: all 0.35s linear;
+
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important ;
+
+
 }
 

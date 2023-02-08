@@ -30,9 +30,10 @@
   color: white !important;
 }
 
+
+
 .card {
   background-color: #000000 !important;
-  width: 19rem !important;
 }
 
 .navbar.navbar-custom {
@@ -40,9 +41,21 @@
   height: 8rem;
 }
 
+@media (max-width: 320px) {
+  .card-img-top {
+    width: 300px !important;
+  }
+}
+
 .card-img-top {
-  width: 100% !important;
-  height: 19rem !important;
+  /* width: 19rem;
+  height: 19rem;
+  transition: 0.2s !important;
+  background-color: #ddd;
+  object-fit: cover; */
+
+  width:19rem ;
+  height: 19rem;
   transition: 0.2s !important;
   background-color: #ddd;
   object-fit: cover;
@@ -269,10 +282,6 @@
 
 /* @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book); */
 
-* {
-  box-sizing: border-box;
-  font-family: "circular std book", sans-serif;
-}
 
 /* body {
   margin: 0;

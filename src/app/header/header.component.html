@@ -1,27 +1,18 @@
+
 <header class="fixedHeader">
-  <app-marquee></app-marquee>
-  <style>
-    .container-1 {
-      margin-left: 10rem;
-      margin-right: 10em;
-    }
 
-    .bg-dark {
-      background-color: #141414 !important;
-    }
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #141414;">
+    <a class="navbar-brand" routerLink="/Homepage">
+      <img src="assets/photos/logoo.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+      BEATZONE
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    .navbar {
-      height: 5rem;
-    }
-  </style>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 10rem; margin-right: 10rem">
+    <div class="collapse navbar-collapse" id="navbarsExample05">
       <ul class="navbar-nav mr-auto">
-        <a class="navbar-brand" routerLink="/Homepage">
-          <img src="assets/photos/logoo.png" width="30" height="30" class="d-inline-block align-top" alt="" />
-          BEATZONE
-        </a>
+
         <li class="nav-item active">
           <a class="nav-link" routerLink="/TrackList">Beats<span class="sr-only">(current)</span></a>
         </li>
@@ -113,15 +104,17 @@
     </div>
   </nav>
 </header>
+
+
 <style>
-  .fixedHeader {
-    position: fixed;
-    /* verdiğin top ve left değerlerinde sabit tutan kod 'fixed' yani tarayıcıya göre göreceli*/
-    width: 100%;
-    /* burayı istediğin şekilde değiştirebilirsin tamamen senin kullanacağın header tasarımına göre ayarladığın width değeri*/
-    z-index: 1000;
-    /* z-index divine üst yada alt katman ayarı yapmanı sağlar 1'in sonuna koyduğun 0 saysısna göre daha yukarda olmasını sağlar. */
-    top: 0;
-    /* top o divin en yukarı yapışık olması için kendi tasarımına göre değiştirebilirsin */
-  }
+
 </style>
+
+
+
+
+
+
+
+
+
