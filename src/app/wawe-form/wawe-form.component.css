@@ -89,26 +89,42 @@
 /* ///////////// */
 
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
-
+@media only screen and (max-width: 768px) {
+  section {
+    justify-content: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: scroll;
+  }
+  section > * {
+    width: 100%;
+    min-width: 0;
+  }
+}
 
 section {
-  margin-left: 1rem;
-  margin-top: 2rem;
-  float: left !important;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  flex-wrap: wrap;
 
 }
 
 .player {
-
   display: grid;
   grid-template-columns: 10rem 1fr;
-  width: 48.5rem;
+  width: 800px;
   background-color: #141414;
   border-radius: 0.5rem;
   box-shadow: 0 1rem 1.5rem #10101024;
   overflow: hidden;
 }
 
+/* @media only screen and (max-width: 768px) {
+  .player {
+    width: 100%;
+  }
+} */
 .player .thumb {
   width: 10rem;
   height: 10rem;

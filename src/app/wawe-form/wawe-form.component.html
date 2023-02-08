@@ -1,99 +1,102 @@
 <!--#region filter  -->
-
-<nav class="navbar navbar-custom" style="position: fixed; width: 100%; z-index: 200; top: 110px">
-  <div>
-    <form class="form-inline">
-      <input style="border-radius: 25px !important; border: 1px solid #ffffff" id="title" name="title" type="search"
-        [(ngModel)]="filterText" class="form-control ml-2 mr-2 sm-2" placeholder="Search..." aria-label="Search" />
-      <button style="border-radius: 25px !important; border: 1px solid #ffffff"
-        class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()">
-        Search
-      </button>
-      <div class="dropdown">
-        <button style="
-            border-radius: 25px !important;
-            border: 1px solid #ffffff;
-            margin-left: 2rem;
-          " class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sort By
+<nav class="navbar navbar-expand-lg navbar-dark  " style="background-color: #000000;">
+  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <form class="form-inline">
+        <input style="border-radius: 25px !important; border: 1px solid #ffffff" id="title" name="title" type="search"
+          [(ngModel)]="filterText" class="form-control ml-2 mr-2 sm-2" placeholder="Search..." aria-label="Search" />
+        <button style="border-radius: 25px !important; border: 1px solid #ffffff"
+          class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()">
+          Search
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="sortByPrice('price')">Price</a>
-          <a class="dropdown-item" (click)="sortByPrice('price')">Download</a>
-          <a class="dropdown-item" (click)="sortByPrice('price')">Command</a>
+        <div class="dropdown">
+          <button style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 2rem;
+            " class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="sortByPrice('price')">Price</a>
+            <a class="dropdown-item" (click)="sortByPrice('price')">Download</a>
+            <a class="dropdown-item" (click)="sortByPrice('price')">Command</a>
+          </div>
         </div>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+        <div class="dropdown">
+          <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 1rem;
+            ">
+            Date
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="sortByDate('dateTime')">Newest First</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 1rem;
+            ">
+            Key
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="filterByKey('')">Select Key</a>
+            <a class="dropdown-item" *ngFor="let key of keys" (click)="filterByKey(key.keyName)">{{ key.keyName }}</a>
+          </div>
+        </div>
+        <button *ngFor="let genre of genres" style="
             border-radius: 25px !important;
             border: 1px solid #ffffff;
             margin-left: 1rem;
-          ">
-          Date
+            margin-top: rem !important;
+          " class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()"
+          (click)="filterByGenre(genre.name)">
+          {{ genre.name }}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="sortByDate('dateTime')">Newest First</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="btn btn-outline-light ml-2 dropdown-toggle" type="button" id="dropdownMenuButton"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
-            border-radius: 25px !important;
-            border: 1px solid #ffffff;
-            margin-left: 1rem;
-          ">
-          Key
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="filterByKey('')">Select Key</a>
-          <a class="dropdown-item" *ngFor="let key of keys" (click)="filterByKey(key.keyName)">{{ key.keyName }}</a>
-        </div>
-      </div>
-      <button *ngFor="let genre of genres" style="
-          border-radius: 25px !important;
-          border: 1px solid #ffffff;
-          margin-left: 1rem;
-          margin-top: rem !important;
-        " class="btn btn-outline-light my-2 my-sm-0 rounded" type="submit" (click)="onTrackFilter()"
-        (click)="filterByGenre(genre.name)">
-        {{ genre.name }}
-      </button>
 
-      <!-- <div class="dropdown">
-            <button
-              class="btn btn-outline-light ml-2 dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false
-              "
-              style="border-radius: 25px !important; border: 1px solid #ffffff"
-            >
-              Genre
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" (click)="filterByGenre('')">All Genres</a>
-              <a
-                class="dropdown-item"
-                *ngFor="let genre of genres"
-                (click)="filterByGenre(genre.name)"
-                >{{ genre.name }}</a
+        <!-- <div class="dropdown">
+              <button
+                class="btn btn-outline-light ml-2 dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false
+                "
+                style="border-radius: 25px !important; border: 1px solid #ffffff"
               >
-            </div>
-          </div> -->
-    </form>
+                Genre
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" (click)="filterByGenre('')">All Genres</a>
+                <a
+                  class="dropdown-item"
+                  *ngFor="let genre of genres"
+                  (click)="filterByGenre(genre.name)"
+                  >{{ genre.name }}</a
+                >
+              </div>
+            </div> -->
+      </form>
+    </ul>
   </div>
 </nav>
 
+
 <!--#endregion -->
 <!--#region trackList  -->
-<style>
-
-</style>
-<div class="row" style="margin-top: 14.875rem !important">
+<div class="row" style="margin-left: none !important;">
   <section *ngFor="
       let track of trackDetails.slice(0, 6)
         | trackPageKeyFilter : filteredKey
