@@ -1,4 +1,4 @@
-package com.example.app;
+package com.devdavtic.angular;
 
 import com.getcapacitor.BridgeActivity;
 

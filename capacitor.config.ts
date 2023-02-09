@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
+  appId: 'com.devdavtic.angular',
   appName: 'beatport',
   webDir: 'dist/beatport',
   bundledWebRuntime: false
