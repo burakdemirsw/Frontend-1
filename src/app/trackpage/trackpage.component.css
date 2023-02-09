@@ -211,7 +211,9 @@
 
 .music_player {
   height: 12%;
-  width: 100%;
+  width: 80 !important;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .music_player_body_up {
@@ -289,6 +291,19 @@
   background-color: #222;
   font-size: 14px;
 } */
+@media (max-width: 768px) {
+  #cardButton,
+  #cardButtonInner,
+  #skipStartButton,
+  #skipRandomButton,
+  #rePlayButton,
+  #skipEndButton,
+  #infoButton,
+  #favoriteButton,
+  #lyricButton {
+    visibility: hidden;
+  }
+}
 
 .music-player {
   --primary-color: #ddd;

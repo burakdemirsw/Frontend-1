@@ -1,7 +1,18 @@
 <!--#region navbar  -->
-<nav class="navbar navbar-expand-lg navbar-dark  " style="background-color: #000000;">
+<nav
+  class="navbar navbar-expand-lg navbar-dark"
+  style="background-color: #000000"
+>
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -140,15 +151,15 @@
       />
       <div class="play">
         <img
-        (click)="clicked()"
-        (click)="resetIndex(track.id)"
-        (click)="
-          changePlayerByTrack(
-            track.photoUrl,
-            track.title,
-            track.desc,
-            track.price
-          )
+          (click)="clicked()"
+          (click)="resetIndex(track.id)"
+          (click)="
+            changePlayerByTrack(
+              track.photoUrl,
+              track.title,
+              track.desc,
+              track.price
+            )
           "
           (click)="openFile3(track.id)"
           id="i{{ track.id }}"
@@ -242,13 +253,7 @@
 
 <!--#endregion -->
 <!--#region player  -->
-<div
-  class="music-player"
-  *ngIf="buttonClicked"
-  id="player"
-  name="player"
-  style="margin-left: 10em; margin-right: 10rem"
->
+<div class="music-player" *ngIf="buttonClicked" id="player" name="player">
   <div class="song-bar">
     <div class="song-infos">
       <div class="image-container">
@@ -259,8 +264,11 @@
         <p id="trackPlayerName" class="artist"></p>
       </div>
     </div>
+
+
     <div class="icons">
       <button
+        id="favoriteButton"
         class="btn btn-dark realdark"
         (click)="clicked3()"
         style="
@@ -277,6 +285,7 @@
 
       <div class="btn-group dropup">
         <button
+          id="infoButton"
           type="button"
           class="btn btn-dark.realdark"
           style="border-radius: 25px !important; border: 1px solid #141414"
@@ -299,13 +308,16 @@
           <a class="dropdown-item">Go To Artist</a>
         </div>
       </div>
+
       <button
+        id="cardButton"
         class="btn btn-primary"
         (click)="clicked3()"
         style="border-radius: 25px !important; border: 1px solid #141414"
         (click)="addToCartToTrackDetail()"
       >
         <i
+          id="cardButtonInner"
           class="bi bi-cart4"
           style="color: white !important"
           id="trackPlayerPrice"
@@ -317,6 +329,7 @@
   <div class="progress-controller">
     <div class="control-buttons">
       <button
+        id="skipRandomButton"
         style="border-radius: 25px !important; border: 1px solid #141414"
         class="btn btn-dark.realdark"
         (click)="skipRandom()"
@@ -325,6 +338,7 @@
         <i class="bi bi-shuffle"></i>
       </button>
       <button
+        id="skipStartButton"
         style="border-radius: 25px !important; border: 1px solid #141414"
         class="btn btn-dark.realdark"
         (click)="skipStart()"
@@ -347,6 +361,7 @@
         ></i>
       </button>
       <button
+        id="skipEndButton"
         style="border-radius: 25px !important; border: 1px solid #141414"
         class="btn btn-dark.realdark"
         (click)="skipEnd()"
@@ -354,6 +369,7 @@
         <i class="bi bi-skip-end"></i>
       </button>
       <button
+        id="rePlayButton"
         class="btn btn-dark.realdark"
         (click)="rePlay()"
         style="border-radius: 25px !important; border: 1px solid #141414"
@@ -382,6 +398,7 @@
     <div class="other-features">
       <div class="volume-bar">
         <button
+          id="lyricButton"
           class="btn btn-dark.realdark"
           style="border-radius: 25px !important; border: 1px solid #141414"
         >

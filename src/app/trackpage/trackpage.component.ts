@@ -33,6 +33,8 @@ export class TrackpageComponent implements OnInit, OnDestroy {
   ) {}
   //#endregion
   //#region variables
+  isMobile: boolean;
+
   slice1: number = 0;
   slice2: number = 20;
   count: number = 0;
@@ -93,6 +95,8 @@ export class TrackpageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // setInterval(this.consoleWriter.bind(this), 1000);
+    this.isMobile = window.innerWidth <= 768;
+
     this.spinnerService.show();
 
     this.getTrackDetail().subscribe((data) => {
