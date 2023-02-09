@@ -1,7 +1,8 @@
 <!--#region filter  -->
-<nav class="navbar navbar-expand-lg navbar-dark  " style="background-color: #000000;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000">
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -93,10 +94,9 @@
   </div>
 </nav>
 
-
 <!--#endregion -->
 <!--#region trackList  -->
-<div class="row" style="margin-left: none !important;">
+<div class="row" style="margin-left: none !important">
   <section *ngFor="
       let track of trackDetails.slice(0, 6)
         | trackPageKeyFilter : filteredKey
