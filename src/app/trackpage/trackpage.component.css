@@ -73,7 +73,7 @@
 
 
 .itemsContainer {
-  float: left;
+
   position: relative;
   cursor: pointer;
 }
@@ -209,12 +209,6 @@
 /*#region player*/
 
 
-.music_player {
-  height: 12%;
-  width: 80 !important;
-  margin: 0 auto;
-  padding: 1rem;
-}
 
 .music_player_body_up {
   height: 12%;
@@ -222,8 +216,6 @@
   color: white;
   background-color: black !important;
   position: fixed;
-  left: 0;
-  right: 0;
   bottom: 0;
 }
 
@@ -234,8 +226,7 @@
   color: white;
   background-color: #141414 !important;
   position: fixed;
-  left: 0;
-  right: 0;
+
   bottom: 0;
 }
 
@@ -282,15 +273,7 @@
 
 /*#endregion */
 
-/* @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book); */
 
-
-/* body {
-  margin: 0;
-  padding: 0;
-  background-color: #222;
-  font-size: 14px;
-} */
 @media (max-width: 768px) {
   #cardButton,
   #cardButtonInner,
@@ -300,7 +283,9 @@
   #skipEndButton,
   #infoButton,
   #favoriteButton,
-  #lyricButton {
+  #lyricButton,
+  #progressBar,
+  #volumeButton {
     visibility: hidden;
   }
 }
@@ -314,14 +299,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-z-index:  105;
+  z-index:  105;
   height: 7rem;
   padding: var(--padding);
   color: var(--primary-color);
   position: fixed;
+  width: 100%;
   left: 0;
-  right: 0;
   bottom: 0;
+}
+
+.music-player2 {
+
+
+  justify-content: center;
+  align-items: center;
+  z-index:  105;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 7rem;
 }
 
 i {
@@ -390,7 +387,7 @@ i:hover {
 }
 
 .progress-controller {
-  width: 100%;
+  width: 40%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -427,19 +424,13 @@ i:hover {
 }
 
 .progress-bar {
-  height: 8px;
+  height: 10px;
   border-radius: 10px;
-  width: 40%;
-  background-color: #ccc4;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.267);
 }
 
-.progress {
-  position: relative;
-  height: 100%;
-  width: 30%;
-  border-radius: 10px;
-  background-color: var(--secondary-color);
-}
+
 
 .progress-bar:hover .progress {
   background-color: var(--green-color);
@@ -472,7 +463,7 @@ i:hover {
 }
 
 .volume-bar .progress-bar {
-  width: 6em;
+  width: 50%;
 }
 
 .volume-bar .progress-bar:hover .progress::after {

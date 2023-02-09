@@ -129,7 +129,7 @@
 </nav>
 <!--#endregion -->
 <!--#region trackList  -->
-<div class="row">
+<div class="row" style="justify-content:center; padding: 1rem;" >
   <div
     *ngFor="
       let track of trackDetails.slice(this.slice1, this.slice2)
@@ -141,7 +141,7 @@
         | trackpageFilter : searchTrack
     "
     class="card"
-    style="margin-left: 0.99rem; margin-top: 1rem"
+    style=" margin-left:0.5rem"
   >
     <div class="itemsContainer">
       <img
@@ -151,6 +151,7 @@
       />
       <div class="play">
         <img
+
           (click)="clicked()"
           (click)="resetIndex(track.id)"
           (click)="
@@ -253,135 +254,11 @@
 
 <!--#endregion -->
 <!--#region player  -->
-<div class="music-player" *ngIf="buttonClicked" id="player" name="player">
-  <div class="song-bar">
-    <div class="song-infos">
-      <div class="image-container">
-        <img id="trackPlayerPhoto" />
-      </div>
-      <div class="song-description">
-        <p id="trackPlayerTitle" class="title"></p>
-        <p id="trackPlayerName" class="artist"></p>
-      </div>
-    </div>
 
-
-    <div class="icons">
-      <button
-        id="favoriteButton"
-        class="btn btn-dark realdark"
-        (click)="clicked3()"
-        style="
-          border-radius: 25px !important;
-          border: 1px solid #141414;
-          background-color: #000 !important;
-        "
-      >
-        <i
-          class="bi bi-heart"
-          [ngClass]="{ 'bi bi-suit-heart-fill': buttonClicked3 == true }"
-        ></i>
-      </button>
-
-      <div class="btn-group dropup">
-        <button
-          id="infoButton"
-          type="button"
-          class="btn btn-dark.realdark"
-          style="border-radius: 25px !important; border: 1px solid #141414"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <i class="bi bi-three-dots"></i>
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item">Repost</a>
-          <a class="dropdown-item">Command</a>
-          <a class="dropdown-item">Share</a>
-          <div class="dropdown-divider"></div>
-          <a
-            class="dropdown-item"
-            routerLink="/Track-Special/{{ this.currentTrackId }}"
-            >Go To Track</a
-          >
-          <a class="dropdown-item">Go To Artist</a>
-        </div>
-      </div>
-
-      <button
-        id="cardButton"
-        class="btn btn-primary"
-        (click)="clicked3()"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-        (click)="addToCartToTrackDetail()"
-      >
-        <i
-          id="cardButtonInner"
-          class="bi bi-cart4"
-          style="color: white !important"
-          id="trackPlayerPrice"
-        ></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="progress-controller">
-    <div class="control-buttons">
-      <button
-        id="skipRandomButton"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-        class="btn btn-dark.realdark"
-        (click)="skipRandom()"
-        (click)="resetPlayerByTrack(this.currentIndex)"
-      >
-        <i class="bi bi-shuffle"></i>
-      </button>
-      <button
-        id="skipStartButton"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-        class="btn btn-dark.realdark"
-        (click)="skipStart()"
-        (click)="resetPlayerByTrack(currentIndex)"
-      >
-        <i class="bi bi-skip-start"></i>
-      </button>
-
-      <button
-        class="btn btn-dark.realdark"
-        (click)="clicked2()"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-      >
-        <i
-          class="bi bi-play"
-          [ngClass]="{
-            'bi bi-pause': buttonClicked2 == true,
-            'bi bi-play': buttonClicked2 == false
-          }"
-        ></i>
-      </button>
-      <button
-        id="skipEndButton"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-        class="btn btn-dark.realdark"
-        (click)="skipEnd()"
-      >
-        <i class="bi bi-skip-end"></i>
-      </button>
-      <button
-        id="rePlayButton"
-        class="btn btn-dark.realdark"
-        (click)="rePlay()"
-        style="border-radius: 25px !important; border: 1px solid #141414"
-      >
-        <i class="bi bi-arrow-counterclockwise"></i>
-      </button>
-    </div>
-    <div
-      class="progress-container"
-      style="margin-left: 5rem; margin-right: 5rem"
-    >
-      <span>{{ currentTime }}</span>
+<div *ngIf="buttonClicked" id="allPlayer" class="music-player2">
+  <div>
+    <div class="progress-container">
+      <!-- <span>{{ currentTime }}</span> -->
       <div class="progress-bar">
         <input
           type="range"
@@ -389,47 +266,170 @@
           max="{{ duration }}"
           value="{{ seek }}"
           (input)="setCurrentTime($event)"
-          class="form-range mw-100"
+          class="form-range"
           id="audioRange2"
         />
       </div>
-      <span>{{ duration2 }}</span>
+      <!-- <span>{{ duration2 }}</span> -->
     </div>
-    <div class="other-features">
-      <div class="volume-bar">
+  </div>
+  <div class="music-player" id="player" name="player">
+    <div class="song-bar">
+      <div class="song-infos">
+        <div class="image-container">
+          <img id="trackPlayerPhoto" />
+        </div>
+        <div class="song-description">
+          <p id="trackPlayerTitle" class="title"></p>
+          <p id="trackPlayerName" class="artist"></p>
+        </div>
+      </div>
+
+      <div class="icons">
         <button
-          id="lyricButton"
+          id="favoriteButton"
           class="btn btn-dark.realdark"
-          style="border-radius: 25px !important; border: 1px solid #141414"
-        >
-          <i class="bi bi-blockquote-left"></i>
-        </button>
-        <button
-          class="btn btn-dark.realdark"
-          (click)="mute()"
-          (click)="clicked4()"
-          style="border-radius: 25px !important; border: 1px solid #141414"
+          (click)="clicked3()"
+          style="border-radius: 25px !important"
         >
           <i
-            class="bi bi-volume-up"
-            [ngClass]="{
-              'bi bi-volume-off': buttonClicked4 == true,
-              'bi bi-volume-up': buttonClicked4 == false
-            }"
+            class="bi bi-heart"
+            [ngClass]="{ 'bi bi-suit-heart-fill': buttonClicked3 == true }"
           ></i>
         </button>
 
-        <div class="progress-bar">
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value="1"
-            (input)="setVolume($event)"
-            class="form-range"
-            id="audioRange"
-          />
+        <div class="btn-group dropup">
+          <button
+            id="infoButton"
+            type="button"
+            class="btn btn-dark.realdark"
+            style="border-radius: 25px !important"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item">Repost</a>
+            <a class="dropdown-item">Command</a>
+            <a class="dropdown-item">Share</a>
+            <div class="dropdown-divider"></div>
+            <a
+              class="dropdown-item"
+              routerLink="/Track-Special/{{ this.currentTrackId }}"
+              >Go To Track</a
+            >
+            <a class="dropdown-item">Go To Artist</a>
+          </div>
+        </div>
+
+        <button
+          id="cardButton"
+          class="btn btn-primary"
+          (click)="clicked3()"
+          style="border-radius: 25px !important; border: 1px solid #141414"
+          (click)="addToCartToTrackDetail()"
+        >
+          <i
+            id="cardButtonInner"
+            class="bi bi-cart4"
+            style="color: white !important"
+            id="trackPlayerPrice"
+          ></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="progress-controller">
+      <div class="control-buttons">
+        <button
+          id="skipRandomButton"
+          style="border-radius: 25px !important"
+          class="btn btn-dark.realdark"
+          (click)="skipRandom()"
+          (click)="resetPlayerByTrack(this.currentIndex)"
+        >
+          <i class="bi bi-shuffle"></i>
+        </button>
+        <button
+          id="skipStartButton"
+          style="border-radius: 25px !important"
+          class="btn btn-dark.realdark"
+          (click)="skipStart()"
+          (click)="resetPlayerByTrack(currentIndex)"
+        >
+          <i class="bi bi-skip-start"></i>
+        </button>
+
+        <button
+          class="btn btn-dark.realdark"
+          (click)="clicked2()"
+          style="border-radius: 25px !important"
+        >
+          <i
+            class="bi bi-play"
+            [ngClass]="{
+              'bi bi-pause': buttonClicked2 == true,
+              'bi bi-play': buttonClicked2 == false
+            }"
+          ></i>
+        </button>
+        <button
+          id="skipEndButton"
+          style="border-radius: 25px !important"
+          class="btn btn-dark.realdark"
+          (click)="skipEnd()"
+        >
+          <i class="bi bi-skip-end"></i>
+        </button>
+        <button
+          id="rePlayButton"
+          class="btn btn-dark.realdark"
+          (click)="rePlay()"
+          style="border-radius: 25px !important"
+        >
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+
+      <div class="other-features">
+        <div class="volume-bar">
+          <button
+            id="lyricButton"
+            class="btn btn-dark.realdark"
+            style="border-radius: 25px !important"
+          >
+            <i class="bi bi-blockquote-left"></i>
+          </button>
+          <button
+            id="volumeButton"
+            class="btn btn-dark.realdark"
+            (click)="mute()"
+            (click)="clicked4()"
+            style="border-radius: 25px !important"
+          >
+            <i
+              class="bi bi-volume-up"
+              [ngClass]="{
+                'bi bi-volume-off': buttonClicked4 == true,
+                'bi bi-volume-up': buttonClicked4 == false
+              }"
+            ></i>
+          </button>
+
+          <div class="progress-bar" id="progressBar">
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="1"
+              (input)="setVolume($event)"
+              class="form-range"
+              id="audioRange"
+            />
+          </div>
         </div>
       </div>
     </div>
