@@ -44,7 +44,6 @@ import { MarqueeComponent } from './marquee/marquee.component';
 import { PlayerCardComponent } from './wawe-form/player-card/player-card.component';
 import { TrackFSComponent } from './track-fs/track-fs.component';
 import { NgxEditorModule } from 'ngx-editor';
-import { NgxEditorComponent } from './ngx-editor/ngx-editor.component'
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { NewRegisterComponent } from './new-register/new-register.component';
@@ -80,7 +79,6 @@ import { HttpErrorHandlerInterceptorService } from './services/http-error-handle
     MarqueeComponent,
     PlayerCardComponent,
     TrackFSComponent,
-    NgxEditorComponent,
     NewRegisterComponent,
 
   ],

@@ -16,7 +16,6 @@ import { GlobalRequestService } from 'src/app/services/global-request.service';
   styleUrls: ['./uploadtrack.component.css'],
 })
 export class UploadtrackComponent implements OnInit {
-
   public files: NgxFileDropEntry[];
   fileList: any[] = [];
 
@@ -41,6 +40,7 @@ export class UploadtrackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.spinnerService.show();
 
     this.createTrackAddForm();
@@ -132,8 +132,9 @@ export class UploadtrackComponent implements OnInit {
   }
 
   addTrack(value: AllTrackDto) {
-    this.spinnerService.show();
+
     if (!this.trackAddForm.valid) {
+      this.spinnerService.show();
       this.trackService
 
         .addTrack(this.addValueFormData(value))
@@ -143,11 +144,10 @@ export class UploadtrackComponent implements OnInit {
           location.reload();
         });
     } else {
+      this.spinnerService.hide();
 
       this.alertifyService.error('ERROR!');
       console.log(this.trackAddForm);
     }
-    this.spinnerService.hide();
-
   }
 }

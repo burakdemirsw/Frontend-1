@@ -1,13 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { HttpHeaders } from "@capacitor/core";
-import { AlertifyService } from "./alertify.service";
-
-
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AlertifyService } from './alertify.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   constructor(
@@ -16,11 +13,8 @@ export class AuthService {
     private alert: AlertifyService
   ) {}
 
-
-
   identityCheck() {
-
-    const token: string = localStorage.getItem("accessToken");
+    const token: string = localStorage.getItem('accessToken');
 
     let expired: boolean;
 
@@ -36,8 +30,6 @@ export class AuthService {
     if (token != null && expired == false) {
       //aut etme komutu
       _isAuthenticated = true;
-
-
     }
     // _isAuthenticated = token != null && !expired;
   }
