@@ -16,34 +16,31 @@ import { LoginUserCommandResponse } from '../models/IdentityDTOs/loginUserComman
 import { SocialUser } from '@abacritt/angularx-social-login/public-api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, _isAuthenticated } from './auth.service';
+import { ApiUrls } from '../models/Consts/ApıUrls';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl = 'http://localhost:5191/Users/Add';
-  apiUrl3 = 'http://localhost:5191/AppUser/Add';
-  apiUrl4 = 'http://localhost:5191/AppUser/Login';
-  apiUrl5 = 'http://localhost:5191/AppUser/Google-Login';
-  apiUrl6 = 'http://localhost:5191/AppUser/Facebook-Login';
-  apiUrl7 = 'http://localhost:5191/AppUser/RefreshToken';
-
   constructor(
     private httpClient: HttpClient,
 
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private alertifyService: AlertifyService,
+    private alertifyService: AlertifyService
   ) {}
 
   addNewUser(addUserdto: AddUserDTO): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(this.apiUrl3, addUserdto);
+    return this.httpClient.post<ResponseModel>(
+      ApiUrls.Domain + ApiUrls.AddUser,
+      addUserdto
+    );
   }
 
   async loginNewUser(addNewUserDTO: AddNewUserDTO): Promise<any> {
     const obs: Observable<any> = this.httpClient.post(
-      this.apiUrl4,
+      ApiUrls.Domain + ApiUrls.GoogleLogin,
       addNewUserDTO
     );
 
@@ -59,7 +56,6 @@ export class UserService {
       _myToken = response.token.accessToken;
       localStorage.setItem('refreshToken', response.token.refreshToken);
 
-
       this.authService.identityCheck();
       this.activatedRouteService();
     } else if (response.token == null) {
@@ -71,28 +67,28 @@ export class UserService {
   }
 
   async refreshTokenLogin(refreshToken: string): Promise<any> {
-    const obs: Observable<any> = this.httpClient.post(this.apiUrl7, {
-      refreshToken: refreshToken,
-    });
+    const obs: Observable<any> = this.httpClient.post(
+      ApiUrls.Domain + ApiUrls.RefreshToken,
+      {
+        refreshToken: refreshToken,
+      }
+    );
 
     const response: LoginUserCommandResponse = (await firstValueFrom(
       obs
     )) as LoginUserCommandResponse;
 
     if (response.boolean == true) {
-
-
       if (localStorage.getItem('accessToken')) {
         localStorage.removeItem('accessToken');
       }
       localStorage.setItem('accessToken', response.token.accessToken);
-      _myToken = response.  token.accessToken;
+      _myToken = response.token.accessToken;
       localStorage.setItem('refreshToken', response.token.refreshToken);
       this.authService.identityCheck();
-      this.activatedRoute2("Homepage")
-
+      this.activatedRoute2('Homepage');
     } else if (response.boolean == false) {
-      this.alertifyService.error("refreshtokentime")
+      this.alertifyService.error('refreshtokentime');
 
       localStorage.removeItem('refreshToken');
 
@@ -100,7 +96,7 @@ export class UserService {
 
       _myToken = null;
       this.authService.identityCheck();
-       this.activatedRoute2('Login')
+      this.activatedRoute2('Login');
     }
 
     return response;
@@ -110,18 +106,21 @@ export class UserService {
       let returnUrl: string = params['returnUrl'];
       if (returnUrl) {
         this.router.navigate([returnUrl]);
-      }else{
-        this.router.navigate(["Homepage"]);
+      } else {
+        this.router.navigate(['Homepage']);
       }
     });
   }
 
-  activatedRoute2(toUrl:string) {
+  activatedRoute2(toUrl: string) {
     this.router.navigate([toUrl]);
   }
 
   googleLoginNewUser(user: SocialUser): LoginUserCommandResponse {
-    const obs: Observable<any> = this.httpClient.post(this.apiUrl5, user);
+    const obs: Observable<any> = this.httpClient.post(
+      ApiUrls.Domain + ApiUrls.GoogleLogin,
+      user
+    );
     let response: LoginUserCommandResponse;
     this.externalValidator(response, obs);
 
@@ -129,7 +128,10 @@ export class UserService {
   }
 
   facebookLoginNewUser(user: SocialUser): LoginUserCommandResponse {
-    const obs: Observable<any> = this.httpClient.post(this.apiUrl6, user);
+    const obs: Observable<any> = this.httpClient.post(
+      ApiUrls.Domain + ApiUrls.FacebookLogin,
+      user
+    );
 
     let response: LoginUserCommandResponse;
 
@@ -145,12 +147,12 @@ export class UserService {
     return null;
   }
 
-  setMyToken(): void{
-    let accessToken = localStorage.getItem("accessToken")
-    if (accessToken.length>0) {
-      _myToken=accessToken
-    }else{
-      this.alertifyService.error("accessToken Bulunamadı")
+  setMyToken(): void {
+    let accessToken = localStorage.getItem('accessToken');
+    if (accessToken.length > 0) {
+      _myToken = accessToken;
+    } else {
+      this.alertifyService.error('accessToken Bulunamadı');
     }
   }
   externalValidator(
