@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalRequestService } from 'src/app/services/global-request.service';
 import { HubUrls } from 'src/app/models/Consts/HubUrls';
 import { ApiUrls } from 'src/app/models/Consts/ApıUrls';
+import { ClientUrls } from 'src/app/models/Consts/ClientUrls';
 
 @Component({
   selector: 'app-uploadtrack',
@@ -143,7 +144,7 @@ export class UploadtrackComponent implements OnInit {
         .subscribe((response) => {
           this.alertifyService.success('TRACK HAS BEEN UPLODED SUCCSESSFULY');
           this.spinnerService.hide();
-          location.reload();
+          location.href = ClientUrls.Domain+ClientUrls.Home;
         });
     } else {
       this.spinnerService.hide();

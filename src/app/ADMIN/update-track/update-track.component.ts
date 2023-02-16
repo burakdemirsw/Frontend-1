@@ -12,6 +12,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { TrackUpdateDto } from 'src/app/models/DTOs/TrackUpdateDto';
 import { SingleTrackDto } from 'src/app/models/DTOs/singleTrackDto';
 import { GlobalRequestService } from 'src/app/services/global-request.service';
+import { ApiUrls } from 'src/app/models/Consts/ApıUrls';
+import { ClientUrls } from 'src/app/models/Consts/ClientUrls';
 
 @Component({
   selector: 'app-update-track',
@@ -22,17 +24,12 @@ export class UpdateTrackComponent implements OnInit {
   track: Track = new Track();
   single: SingleTrackDto = new SingleTrackDto();
   trackUpdateForm!: FormGroup;
-
-  url = 'http://localhost:4200/TrackList';
   genres: Genre[] = [];
   keys: Key[] = [];
-
   public files: NgxFileDropEntry[];
   fileList: any[] = [];
-
   public files2: NgxFileDropEntry[];
   fileList2: any[] = [];
-
   currentTrackId: number = 0;
 
   constructor(
@@ -74,12 +71,12 @@ export class UpdateTrackComponent implements OnInit {
   }
   getKeys() {
     return this.globalService.globalGet<Key[]>(
-      'http://localhost:5191/keys/getall'
+      ApiUrls.Domain + ApiUrls.GetAllKeys
     );
   }
   getGenres() {
     return this.globalService.globalGet<Genre[]>(
-      'http://localhost:5191/genres/getall'
+      ApiUrls.Domain + ApiUrls.GetAllGenres
     );
   }
   createTrackUpdateForm() {
@@ -153,13 +150,13 @@ export class UpdateTrackComponent implements OnInit {
         .subscribe((response) => {
           this.alertifyService.success('TRACK HAS BEEN UPLOADED SUCCSESSFULY');
           this.spinnerService.hide();
-          location.href = 'http://localhost:4200/TrackList';
+          location.href = ClientUrls.Domain+ClientUrls.Home;
         });
     } else {
       this.spinnerService.hide();
 
       this.alertifyService.error('ERROR!');
-      location.reload();
+      location.href = ClientUrls.Domain+ClientUrls.Home;
     }
   }
 }

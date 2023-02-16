@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiUrls } from '../models/Consts/ApıUrls';
 import { CreateLoopDTO } from '../models/DTOs/createLoopDTO';
 import { CreateTrackDTO } from '../models/DTOs/createTrackDTO';
 import { LoopDetailDTO } from '../models/DTOs/LoopDetailDTO';
@@ -15,42 +16,27 @@ import { TrackDetail } from '../models/trackDetail';
 import { AlertifyService } from './alertify.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoopService {
-  apiUrl = 'http://localhost:5191/Loops/Add';
-  getPath2 = 'http://localhost:5191/Loops/Delete';
-  getPath3 = 'http://localhost:5191/Loops/Get';
-  apiUrl2 = 'http://localhost:5191/Loops/Update';
-  apiUrl3 = 'http://localhost:5191/LoopsDetail/Add';
-  apiUrl4 = 'http://localhost:5191/Loops/TrackDetailsById';
-  apiUrl5 = 'http://localhost:5191/Loops/getall';
-  apiUrl6 = 'http://localhost:5191/Loops/UpdateDN';
-
-
   constructor(
     private httpClient: HttpClient,
     private alertifyService: AlertifyService
   ) {}
 
   getLoopFromApi(loopId: number): Observable<Loop> {
-    //
-
-    const url = `${this.getPath3}/${loopId}`;
+    const url = `${ApiUrls.Domain + ApiUrls.GetLoop}/${loopId}`;
     return this.httpClient.get<Loop>(url);
   }
 
   getLoopWithDetailFromApi(loopId: number): Observable<LoopDetail> {
-    //
-
-    const url = `${this.apiUrl4}/${loopId}`;
+    const url = `${ApiUrls.Domain + ApiUrls.TrackDetailById}/${loopId}`;
     let result = this.httpClient.get<LoopDetail>(url);
-    // console.log(result)
     return result;
   }
 
-  getLoops() {
-    return this.httpClient.get<Loop[]>(this.apiUrl5);
+  getLoops(): Observable<any> {
+    return this.httpClient.get<Loop[]>(ApiUrls.Domain + ApiUrls.GetAllLoops);
   }
 
   addPost(
@@ -58,7 +44,10 @@ export class LoopService {
     loopDetaildto: LoopDetailDTO
   ): Observable<ResponseModel> {
     let createLoopDTO = new CreateLoopDTO(loopdto, loopDetaildto);
-    return this.httpClient.post<ResponseModel>(this.apiUrl, createLoopDTO);
+    return this.httpClient.post<ResponseModel>(
+      ApiUrls.Domain + ApiUrls.AddLoop,
+      createLoopDTO
+    );
   }
 
   updatePost(
@@ -66,16 +55,19 @@ export class LoopService {
     loopDetailDTO: LoopDetailDTO
   ): Observable<ResponseModel> {
     let createLoopDTO = new CreateLoopDTO(loopDTO, loopDetailDTO);
-    return this.httpClient.put<ResponseModel>(this.apiUrl2, createLoopDTO);
+    return this.httpClient.put<ResponseModel>(
+      ApiUrls.Domain + ApiUrls.UptadateLoop,
+      createLoopDTO
+    );
   }
 
-  deleteLoop(loopId: number): Observable<unknown> {
-    const url = `${this.getPath2}/${loopId}`;
+  deleteLoop(loopId: number): Observable<any> {
+    const url = `${ApiUrls.Domain + ApiUrls.DeleteLoop}/${loopId}`;
     return this.httpClient.delete(url);
   }
 
-  updateDownlaodNumberLoop(loopId: number): Observable<unknown> {
-    const url = `${this.apiUrl6}/${loopId}`;
-    return this.httpClient.put<ResponseModel>(url,loopId);
+  updateDownlaodNumberLoop(loopId: number): Observable<any> {
+    const url = `${ApiUrls.Domain + ApiUrls.UpdateDownloadNumber}/${loopId}`;
+    return this.httpClient.put<ResponseModel>(url, loopId);
   }
 }
