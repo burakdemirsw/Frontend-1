@@ -24,7 +24,6 @@ import { ApiUrls } from '../models/Consts/ApıUrls';
 export class UserService {
   constructor(
     private httpClient: HttpClient,
-
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
