@@ -1,5 +1,11 @@
 //#region imports
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Track } from '../models/track';
 import { AlertifyService } from '../services/alertify.service';
@@ -21,7 +27,7 @@ import { GlobalRequestService } from '../services/global-request.service';
   styleUrls: ['./trackpage.component.css'],
   providers: [TrackService],
 })
-export class TrackpageComponent implements OnInit, OnDestroy {
+export class TrackpageComponent implements OnInit, OnDestroy, OnChanges {
   constructor(
     private httpClient: HttpClient,
     private alertifyService: AlertifyService,
@@ -31,10 +37,10 @@ export class TrackpageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private globalRequest: GlobalRequestService
   ) {}
+
   //#endregion
   //#region variables
   isMobile: boolean;
-
   slice1: number = 0;
   slice2: number = 20;
   count: number = 0;
@@ -49,14 +55,20 @@ export class TrackpageComponent implements OnInit, OnDestroy {
   formModal: any;
   tracks: Track[] = [];
   trackDetails: TrackDetail[] = [];
+
   date: Date = new Date();
   key2: string = 'dateTime';
   reverse2: boolean = false;
+  download: string = 'downloadNumber';
+  reverse3: boolean = true;
   key: string = 'price';
   reverse: boolean = false;
   filteredGenre: string = '';
-  filterText = '';
-  searchTrack = '';
+
+  filteredKey: string = '';
+  filterText: string = '';
+  searchTrack: string = '';
+
   today = new Date();
   keys: Key[] = [];
   genres: Genre[] = [];
@@ -89,19 +101,14 @@ export class TrackpageComponent implements OnInit, OnDestroy {
 
   //#endregion
   //#region api's
-  ngOnDestroy(): void {
-    this.audio.pause();
-  }
 
   ngOnInit(): void {
     // setInterval(this.consoleWriter.bind(this), 1000);
-    this.isMobile = window.innerWidth <= 768;
 
     this.spinnerService.show();
 
     this.getTrackDetail().subscribe((data) => {
       this.trackDetails = data;
-      console.log(data);
     });
 
     this.getGenres().subscribe((data) => {
@@ -114,20 +121,51 @@ export class TrackpageComponent implements OnInit, OnDestroy {
 
     this.spinnerService.hide();
   }
-
-  consoleWriter():void{
-    console.log("text")
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
+  ngOnDestroy(): void {
+    this.audio.pause();
+  }
+
+  onInputValueChange(newValue: string) {
+    this.searchTrack = newValue;
+  }
+
+  onInputValueChange2(key: string) {
+
+    this.filteredKey = key;
+    // this.onInputValueChange3(reverse);
+  }
+
+  onInputValueChange3(reverse: boolean) {
+    this.reverse = reverse;
+  }
+
+  setCounter(value: string) {
+    value = 'ez';
+    this.searchTrack = value;
+  }
+
+  onTrackFilter() {
+    this.searchTrack = this.filterText;
+    this.alertifyService.success(this.searchTrack);
+  }
+
   getTrackDetail(): Observable<TrackDetail[]> {
     return this.globalRequest.globalGet<TrackDetail>(
       'http://localhost:5191/Tracks/TrackDetails'
     );
   }
   getKeys() {
-    return this.globalRequest.globalGet<Key[]>('http://localhost:5191/keys/getall');
+    return this.globalRequest.globalGet<Key[]>(
+      'http://localhost:5191/keys/getall'
+    );
   }
   getGenres() {
-    return this.globalRequest.globalGet<Genre[]>('http://localhost:5191/genres/getall');
+    return this.globalRequest.globalGet<Genre[]>(
+      'http://localhost:5191/genres/getall'
+    );
   }
   //#endregion
   //#region Inside Func
@@ -169,8 +207,7 @@ export class TrackpageComponent implements OnInit, OnDestroy {
   addToCart(trackDetail: TrackDetail) {
     this.cartService.addToCart(trackDetail);
   }
-  download: string = 'downloadNumber';
-  reverse3: boolean = true;
+
   sortByDownload(key: string) {
     this.download = key;
     this.reverse3 = !this.reverse3;
@@ -180,30 +217,22 @@ export class TrackpageComponent implements OnInit, OnDestroy {
     this.key = key;
     this.reverse = !this.reverse;
   }
-  onTrackFilter() {
-    this.searchTrack = this.filterText;
-  }
+  // onTrackFilter() {
+  //   this.searchTrack = this.filterText + Date.now();
+  //   console.log(this.searchTrack)
+  // }
 
   filterByGenre(genre: string) {
-    if (this.count == 0) {
+    if (this.count === 0) {
       this.filteredGenre = genre;
 
-      this.spinnerService.show();
-      setTimeout(() => {
-        this.spinnerService.hide();
-      }, 250);
       this.count = 1;
     } else {
       this.filteredGenre = '';
 
-      this.spinnerService.show();
-      setTimeout(() => {
-        this.spinnerService.hide();
-      }, 250);
       this.count = 0;
     }
   }
-  filteredKey: string = '';
   filterByKey(key: string) {
     this.filteredKey = key;
   }

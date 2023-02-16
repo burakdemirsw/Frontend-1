@@ -23,8 +23,9 @@ export class GlobalRequestService {
       });
       return this.httpClient.get<T[]>(path, { headers });
     }else{
+
       this.alertifyService.error("globalGet işlemi sırasında hata oluştu!")
-      return null;
+      return this.httpClient.get<T[]>(path);
 
     }
 

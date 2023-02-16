@@ -50,6 +50,7 @@ import { NewRegisterComponent } from './new-register/new-register.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { HttpErrorHandlerInterceptorService } from './services/http-error-handler-interceptor.service';
+import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -80,6 +81,7 @@ import { HttpErrorHandlerInterceptorService } from './services/http-error-handle
     PlayerCardComponent,
     TrackFSComponent,
     NewRegisterComponent,
+    FilterComponent,
 
   ],
   imports: [

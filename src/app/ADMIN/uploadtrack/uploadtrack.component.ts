@@ -9,6 +9,8 @@ import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
 import { AllTrackDto } from 'src/app/models/DTOs/AllTrackDto';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalRequestService } from 'src/app/services/global-request.service';
+import { HubUrls } from 'src/app/models/Consts/HubUrls';
+import { ApiUrls } from 'src/app/models/Consts/ApıUrls';
 
 @Component({
   selector: 'app-uploadtrack',
@@ -22,8 +24,7 @@ export class UploadtrackComponent implements OnInit {
   public files2: NgxFileDropEntry[];
   fileList2: any[] = [];
 
-  addPath = 'http://localhost:5191/tracks/add';
-  url = 'http://localhost:4200/TrackList';
+
   trackAddForm!: FormGroup;
   trackAddForm2!: FormGroup;
   file: File;
@@ -36,7 +37,8 @@ export class UploadtrackComponent implements OnInit {
     private trackService: TrackService,
     private alertifyService: AlertifyService,
     private spinnerService: NgxSpinnerService,
-    private globalService: GlobalRequestService
+    private globalService: GlobalRequestService,
+
   ) {}
 
   ngOnInit(): void {
@@ -57,13 +59,13 @@ export class UploadtrackComponent implements OnInit {
 
   getKeys() {
     return this.globalService.globalGet<Key[]>(
-      'http://localhost:5191/keys/getall'
+      ApiUrls.Domain+ApiUrls.GetAllKeys
     );
   }
 
   getGenres() {
     return this.globalService.globalGet<Genre[]>(
-      'http://localhost:5191/genres/getall'
+      ApiUrls.Domain+ApiUrls.GetAllGenres
     );
   }
 

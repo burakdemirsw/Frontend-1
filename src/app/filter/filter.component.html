@@ -1,0 +1,136 @@
+
+<nav
+    class="navbar navbar-expand-lg navbar-dark"
+    style="background-color: #000000"
+  >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <form class="form-inline">
+          <input
+            #search
+            style="border-radius: 25px !important; border: 1px solid #ffffff"
+            id="title"
+            name="title"
+            type="search"
+            [value]="searchTrack"
+            class="form-control ml-2 mr-2 sm-2"
+            placeholder="Search..."
+            aria-label="Search"
+          />
+          <button
+            style="border-radius: 25px !important; border: 1px solid #ffffff;"
+            class="btn btn-outline-light my-2 my-sm-0 rounded"
+            type="submit"
+            (click)="onInputValueChange(search.value)"
+
+
+          >
+           <!-- burada kullandk------------------ -->
+            Search
+          </button>
+          <div class="dropdown">
+            <button
+              style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 2rem;
+            "
+              class="btn btn-outline-light ml-2 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort By
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="sortByPrice('price',reverse)">Price</a>
+              <a
+                class="dropdown-item"
+                (click)="sortByDownload('downloadNumber')"
+                >Download</a
+              >
+              <a class="dropdown-item" (click)="sortByPrice('price',reverse)"
+                >Command</a
+              >
+            </div>
+          </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-light ml-2 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 1rem;
+            "
+            >
+              Date
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="sortByDate('dateTime')"
+                >Newest First</a
+              >
+            </div>
+          </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-light ml-2 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style="
+              border-radius: 25px !important;
+              border: 1px solid #ffffff;
+              margin-left: 1rem;
+            "
+            >
+              Key
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="onInputValueChange2('')">Select Key</a>
+              <a
+                class="dropdown-item"
+                *ngFor="let key of keys"
+                (click)="onInputValueChange2(key.keyName)"
+                >{{ key.keyName }}</a
+              >
+            </div>
+          </div>
+          <button
+            *ngFor="let genre of genres"
+            style="
+            border-radius: 25px !important;
+            border: 1px solid #ffffff;
+            margin-left: 1rem;
+            margin-top: rem !important;
+          "
+            class="btn btn-outline-light my-2 my-sm-0 rounded"
+            type="submit"
+            (click)="onTrackFilter()"
+            (click)="filterByGenre(genre.name)"
+          >
+            {{ genre.name }}
+          </button>
+        </form>
+      </ul>
+    </div>
+  </nav>
